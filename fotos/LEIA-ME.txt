@@ -1,0 +1,38 @@
+COMO ADICIONAR AS FOTOS DO SITE
+================================
+
+Solte as fotos nesta pasta ("fotos") com EXATAMENTE estes nomes de arquivo.
+Assim que o nome bater, a foto aparece sozinha no site — não precisa mexer em nenhum código.
+
+equip-fachada.jpg, equip-recepcao.jpg, equip-espera.jpg, equip-cone-beam.jpg, equip-vistascan.jpg, equip-periapical.jpg, equip-consultorio.jpg
+  → As 7 fotos do carrossel "Nossa unidade", logo no início do site (não tem mais foto
+    solta separada no topo — o carrossel é a primeira foto que aparece).
+    Pode trocar qualquer uma por outra foto — o nome do arquivo não precisa bater com o
+    que está na foto, só mantenha os 7 nomes acima. Fotos em formato retrato (vertical,
+    proporção 3:4, tipo foto de celular) encaixam melhor sem cortar nada importante.
+    Para adicionar mais fotos: duplique um bloco `<div class="coverflow-card">...</div>`
+    dentro de `#coverflowTrack` no index.html, ajuste os `aria-label="X de 7"` de todos
+    os cartões pro novo total, adicione um `<button>` a mais em `#carouselDots`, e some
+    a legenda no fim do array "const captions" dentro do <script>.
+    Para mudar a legenda de cada foto (ex: "TOMÓGRAFO VERAVIEW X800"), procure por
+    "const captions" dentro do <script> do index.html — é a mesma ordem das fotos acima.
+
+sobre.jpg
+  → Foto da equipe, do consultório ou de um equipamento (aparelho de raio-x/tomógrafo).
+    Aparece na seção "Sobre nós". (ideal: pelo menos 1000x1200px)
+
+unidade-pompeia.jpg
+  → Foto da fachada ou recepção da unidade Pompeia. (ideal: pelo menos 800x600px)
+    Ainda não tem foto — todas as fotos que chegaram até agora são da unidade Anália Franco.
+
+unidade-analia-franco.jpg
+  → Foto da fachada ou recepção da unidade Anália Franco. (ideal: pelo menos 800x600px)
+
+Enquanto uma foto não é adicionada, o site mostra um espaço reservado (placeholder)
+com um ícone no lugar dela — o layout não quebra, só fica sem a imagem.
+
+LOGO (opcional)
+================
+Se vocês tiverem a arte da logo RadioGraphic em PNG com fundo transparente, colocar em:
+  ../assets/logo.png
+Sem ela, o site usa o nome "RadioGraphic" estilizado como logotipo (já ficou bom assim também).
