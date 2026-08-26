@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   /* ============ TOKENS ============ */
   :root{
@@ -28,7 +28,7 @@
     --paper-70:rgba(250,248,244,.72);
     --paper-45:rgba(250,248,244,.45);
 
-    --font-display:'Cormorant Garamond',Georgia,serif;
+    --font-display:'Bodoni Moda',Georgia,serif;
     --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     --font-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
 
@@ -368,6 +368,36 @@
   .chapter-head .chapter-desc{max-width:38ch;color:var(--ink-body);font-size:1.02rem;text-align:right}
   @media (max-width:760px){.chapter-head .chapter-desc{text-align:left}}
 
+  /* ============ DIAGNÓSTICO — PONTE PARA SERVIÇOS ============ */
+  .reveal-head{max-width:62ch;margin-bottom:var(--space-5)}
+  .reveal-title{font-size:clamp(2rem,4vw,3.1rem);font-weight:700;max-width:16ch;margin-bottom:var(--space-2)}
+  .reveal-head .lead{font-size:1.08rem;color:var(--ink-body);max-width:58ch}
+
+  .reveal-grid{display:grid;grid-template-columns:7fr 4.4fr;gap:var(--space-4);align-items:start}
+  .reveal-media{margin:0}
+  .reveal-media .media-slot-ed{aspect-ratio:16/11}
+  .reveal-panel{
+    display:flex;flex-direction:column;gap:var(--space-4);
+    border:1px solid var(--ink);padding:2.4rem;
+  }
+  .reveal-panel .tag{margin-bottom:var(--space-3)}
+  .reveal-panel p{color:var(--ink-body);font-size:.98rem}
+  .reveal-panel p + p{margin-top:.9rem}
+  .reveal-panel .btn-cta{align-self:flex-start;margin-top:var(--space-1)}
+
+  .reveal-list{list-style:none;margin:var(--space-4) 0 0;padding:0}
+  .reveal-list li{
+    display:flex;align-items:baseline;gap:.8rem;padding:.65rem 0;border-top:1px solid var(--line);
+    font-size:.92rem;color:var(--ink-body);
+  }
+  .reveal-list li:first-child{border-top:none;padding-top:0}
+  .reveal-list .mono{font-weight:700;color:var(--signal);font-size:.76rem;letter-spacing:.06em}
+
+  @media (max-width:900px){
+    .reveal-grid{grid-template-columns:1fr}
+    .reveal-media .media-slot-ed{aspect-ratio:16/9}
+  }
+
   /* ============ EQUIPAMENTOS — INTRO ============ */
   .unit-intro{max-width:64ch;margin-bottom:var(--space-5)}
   .unit-intro .pull-line{margin-bottom:var(--space-2)}
@@ -700,6 +730,43 @@
         <div class="hero-cta-box">
           <a class="btn-cta" href="contato.html">Agendar exame <span class="arrow">→</span></a>
           <a class="btn-frame-lg" id="idocHeroLink" href="#" target="_blank" rel="noopener">Acessar o iDoc <span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DIAGNÓSTICO — PONTE PARA SERVIÇOS ============ -->
+  <section class="chapter-section" id="diagnostico">
+    <div class="container">
+      <div class="reveal-head" data-reveal>
+        <h2 class="reveal-title">Diagnósticos que revelam a saúde.</h2>
+        <p class="lead">Cada imagem carrega informação clínica. Interpretamos cada exame com rigor técnico para que o cirurgião-dentista enxergue o que realmente importa e decida com mais segurança.</p>
+      </div>
+
+      <div class="reveal-grid">
+        <figure class="frame-figure tight reveal-media" data-reveal>
+          <div class="media-slot-ed">
+            <img src="fotos/diagnostico.jpg" alt="Avaliação de imagem odontológica em tela" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="media-placeholder-ed">
+              <svg class="icon" aria-hidden="true"><use href="#icon-layers"/></svg>
+              <strong>Foto do diagnóstico em breve</strong>
+              <small>fotos/diagnostico.jpg</small>
+            </div>
+          </div>
+        </figure>
+
+        <div class="reveal-panel" data-reveal>
+          <div>
+            <span class="tag"><span class="sq"></span>Do exame ao plano de tratamento</span>
+            <p>Da tomografia à radiografia periapical, cada exame passa por leitura criteriosa: a base para um planejamento odontológico seguro.</p>
+            <p>Emitimos laudo digital em até 24 horas, com acesso disponível pelo iDoc para o profissional solicitante acompanhar o caso a qualquer momento.</p>
+            <ul class="reveal-list">
+              <li><span class="mono">01</span><span>Tomografia Cone Beam</span></li>
+              <li><span class="mono">02</span><span>Radiografia Panorâmica</span></li>
+              <li><span class="mono">03</span><span>Escaneamento Intraoral</span></li>
+            </ul>
+          </div>
+          <a class="btn-cta" href="servicos.html">Ver serviços <span class="arrow">→</span></a>
         </div>
       </div>
     </div>
