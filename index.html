@@ -254,7 +254,7 @@
   .ruler .mono{font-size:.68rem;letter-spacing:.14em;color:var(--ink-muted);white-space:nowrap}
 
   .hero-grid{
-    display:grid;grid-template-columns:6fr 3.6fr;gap:var(--space-4);align-items:start;
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4);align-items:center;
   }
 
   .hero-headline{
@@ -282,6 +282,8 @@
   }
 
   .hero-right{display:flex;flex-direction:column;gap:var(--space-3)}
+  .hero-figure .media-slot-ed{aspect-ratio:552/421}
+  .hero-figure .media-slot-ed img{object-fit:contain;background:var(--ink)}
 
   .spec-panel{
     border:1px solid var(--ink);padding:1.4rem;display:flex;flex-direction:column;
@@ -609,6 +611,61 @@
   }
   .float-whatsapp:hover{background:var(--signal);border-color:var(--signal)}
   .float-whatsapp .icon{width:1.6em;height:1.6em}
+
+
+  /* ============ WHATSAPP — ESCOLHA DE UNIDADE ============ */
+  .wa-modal{
+    display:none;position:fixed;inset:0;z-index:300;background:rgba(28,26,23,.55);
+    align-items:center;justify-content:center;padding:var(--space-3);
+  }
+  .wa-modal.is-open{display:flex}
+  .wa-modal-panel{background:var(--paper);border:1px solid var(--ink);max-width:360px;width:100%}
+  .wa-modal-head{
+    display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.3rem;
+    border-bottom:1px solid var(--line);
+    font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .wa-modal-close{background:transparent;border:none;color:var(--ink);cursor:pointer;padding:0;display:flex}
+  .wa-modal-close .icon{width:1.1em;height:1.1em}
+  .wa-modal-options{display:flex;flex-direction:column}
+  .wa-modal-option{
+    display:flex;flex-direction:column;gap:.2rem;padding:1.1rem 1.3rem;text-decoration:none;color:var(--ink);
+    border-bottom:1px solid var(--line);transition:background-color .2s var(--ease);
+  }
+  .wa-modal-option:last-child{border-bottom:none}
+  .wa-modal-option:hover{background:var(--paper-deep)}
+  .wa-modal-option strong{font-family:var(--font-display);font-size:1.1rem}
+  .wa-modal-option span{font-family:var(--font-mono);font-size:.76rem;color:var(--ink-muted)}
+
+
+  /* ============ IDOC — LOGIN DO PACIENTE ============ */
+  .idoc-modal{
+    display:none;position:fixed;inset:0;z-index:300;background:rgba(28,26,23,.55);
+    align-items:center;justify-content:center;padding:var(--space-3);
+  }
+  .idoc-modal.is-open{display:flex}
+  .idoc-modal-panel{background:var(--paper);border:1px solid var(--ink);max-width:360px;width:100%}
+  .idoc-modal-head{
+    display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.3rem;
+    border-bottom:1px solid var(--line);
+    font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .idoc-modal-close{background:transparent;border:none;color:var(--ink);cursor:pointer;padding:0;display:flex}
+  .idoc-modal-close .icon{width:1.1em;height:1.1em}
+  .idoc-modal-form{display:flex;flex-direction:column;gap:.9rem;padding:1.3rem}
+  .idoc-modal-field{display:flex;flex-direction:column;gap:.4rem}
+  .idoc-modal-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted)}
+  .idoc-modal-input{
+    width:100%;padding:.75rem .9rem;border:1px solid var(--line);border-radius:0;
+    font-family:var(--font-body);font-size:.95rem;background:var(--paper);color:var(--ink);
+  }
+  .idoc-modal-input:focus{outline:none;border-color:var(--signal)}
+  .idoc-modal-submit{margin-top:.2rem}
+  .idoc-modal-note{
+    padding:0 1.3rem 1.3rem;font-family:var(--font-mono);font-size:.72rem;color:var(--ink-muted);line-height:1.6;
+  }
+  .idoc-modal-note a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+  .idoc-modal-note a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -644,6 +701,12 @@
           <ul class="nav-dropdown">
             <li><a class="nav-dropdown-link" href="cirurgia-guiada.html">Cirurgia Guiada</a></li>
             <li><a class="nav-dropdown-link" href="prototipagem.html">Prototipagem</a></li>
+            <li><a class="nav-dropdown-link" href="tomografia-cone-beam.html">Tomografia Cone Beam</a></li>
+            <li><a class="nav-dropdown-link" href="radiografia-panoramica.html">Radiografia Panorâmica</a></li>
+            <li><a class="nav-dropdown-link" href="radiografia-periapical.html">Radiografia Periapical</a></li>
+            <li><a class="nav-dropdown-link" href="telerradiografia.html">Telerradiografia</a></li>
+            <li><a class="nav-dropdown-link" href="documentacao-ortodontica.html">Documentação Ortodôntica</a></li>
+            <li><a class="nav-dropdown-link" href="escaneamento-intraoral.html">Escaneamento Intraoral</a></li>
           </ul>
         </li>
         <li><a href="solicitacao.html">Solicitação</a></li>
@@ -710,29 +773,16 @@
       </div>
 
       <div class="hero-right">
-        <aside class="spec-panel" data-reveal>
-          <div class="spec-row">
-            <span class="spec-label">Unidades</span>
-            <span class="spec-value" data-counter data-target="2">0</span>
+        <figure class="frame-figure tight hero-figure">
+          <div class="media-slot-ed">
+            <img src="fotos/tomografia-cone-beam.jpg" alt="Reconstrução 3D de tomografia Cone Beam" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="media-placeholder-ed">
+              <svg class="icon" aria-hidden="true"><use href="#icon-scan"/></svg>
+              <strong>Imagem em breve</strong>
+              <small>fotos/tomografia-cone-beam.jpg</small>
+            </div>
           </div>
-          <div class="spec-row">
-            <span class="spec-label">Laudo digital</span>
-            <span class="spec-value" data-counter data-target="24" data-suffix="H">0H</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Atendimento</span>
-            <span class="spec-value" data-counter data-target="6" data-suffix="D">0D</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Responsáveis</span>
-            <span class="spec-value-text">CRO</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-label">Convênio</span>
-            <span class="spec-value-text">PARTICULAR<br>+ CONVÊNIOS</span>
-          </div>
-        </aside>
-
+        </figure>
         <div class="hero-cta-box">
           <a class="btn-cta" href="contato.html">Agendar exame <span class="arrow">→</span></a>
           <a class="btn-frame-lg" id="idocHeroLink" href="#" target="_blank" rel="noopener">Acessar o iDoc <span class="arrow">↗</span></a>
@@ -783,7 +833,7 @@
     <div class="container">
       <div class="chapter-head" data-reveal>
         <div>
-          <h2>Nossa unidade.</h2>
+          <h2>Nossas unidades.</h2>
         </div>
         <p class="chapter-desc">Pompéia e Anália Franco — fachada e equipamentos, com tecnologia digital para exames precisos.</p>
       </div>
@@ -797,26 +847,29 @@
       <div class="coverflow" data-reveal role="region" aria-roledescription="carousel" aria-label="Fotos da unidade Anália Franco">
         <div class="coverflow-frame" tabindex="0">
           <div class="coverflow-track">
-            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="1 de 7" data-caption="FACHADA — UNIDADE ANÁLIA FRANCO">
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="1 de 8" data-caption="FACHADA — UNIDADE ANÁLIA FRANCO">
               <img src="fotos/equip-fachada.jpg" alt="Fachada da RadioGraphic, unidade Anália Franco" draggable="false">
             </div>
-            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="2 de 7" data-caption="RECEPÇÃO">
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="2 de 8" data-caption="RECEPÇÃO">
               <img src="fotos/equip-recepcao.jpg" alt="Recepção da RadioGraphic, unidade Anália Franco" draggable="false">
             </div>
-            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="3 de 7" data-caption="SALA DE ESPERA">
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="3 de 8" data-caption="ENTRADA">
+              <img src="fotos/equip-entrada.jpg" alt="Entrada da RadioGraphic, unidade Anália Franco" draggable="false">
+            </div>
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="4 de 8" data-caption="SALA DE ESPERA">
               <img src="fotos/equip-espera.jpg" alt="Sala de espera da RadioGraphic" draggable="false">
             </div>
-            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="4 de 7" data-caption="TOMÓGRAFO VERAVIEW X800">
-              <img src="fotos/equip-cone-beam.jpg" alt="Tomógrafo Veraview X800 na RadioGraphic" draggable="false">
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="5 de 8" data-caption="SALA DE RX">
+              <img src="fotos/equip-cone-beam.jpg" alt="Sala de RX da RadioGraphic" draggable="false">
             </div>
-            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="5 de 7" data-caption="DIGITALIZADOR VISTASCAN">
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="6 de 8" data-caption="DIGITALIZADOR VISTASCAN">
               <img src="fotos/equip-vistascan.jpg" alt="Digitalizador VistaScan da Dürr Dental" draggable="false">
             </div>
-            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="6 de 7" data-caption="SALA DE RADIOGRAFIA PERIAPICAL">
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="7 de 8" data-caption="SALA DE RADIOGRAFIA PERIAPICAL">
               <img src="fotos/equip-periapical.jpg" alt="Sala de radiografia periapical" draggable="false">
             </div>
-            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="7 de 7" data-caption="CONSULTÓRIO DE ATENDIMENTO">
-              <img src="fotos/equip-consultorio.jpg" alt="Consultório de atendimento da RadioGraphic" draggable="false">
+            <div class="coverflow-card" role="group" aria-roledescription="slide" aria-label="8 de 8" data-caption="SALA DE ESCANEAMENTO">
+              <img src="fotos/equip-consultorio.jpg" alt="Sala de escaneamento da RadioGraphic" draggable="false">
             </div>
           </div>
           <button class="carousel-arrow prev" type="button" aria-label="Foto anterior">←</button>
@@ -1104,6 +1157,53 @@
   <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
 </a>
 
+<div class="wa-modal" id="waModal">
+  <div class="wa-modal-panel" role="dialog" aria-modal="true" aria-label="Escolha a unidade para falar no WhatsApp">
+    <div class="wa-modal-head">
+      <span>Escolha a unidade</span>
+      <button class="wa-modal-close" id="waModalClose" aria-label="Fechar">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg>
+      </button>
+    </div>
+    <div class="wa-modal-options">
+      <a class="wa-modal-option" id="waOptionPompeia" href="#" target="_blank" rel="noopener">
+        <strong>Pompéia</strong>
+        <span>Rua Ministro Ferreira Alves, 586</span>
+      </a>
+      <a class="wa-modal-option" id="waOptionAnalia" href="#" target="_blank" rel="noopener">
+        <strong>Anália Franco</strong>
+        <span>Av. Sapopemba, 342</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="idoc-modal" id="idocModal">
+  <div class="idoc-modal-panel" role="dialog" aria-modal="true" aria-label="Acessar seus exames pelo iDoc">
+    <div class="idoc-modal-head">
+      <span>Acessar seus exames</span>
+      <button class="idoc-modal-close" id="idocModalClose" aria-label="Fechar">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg>
+      </button>
+    </div>
+    <form class="idoc-modal-form" action="https://radiographic.radiomemory.com.br/paciente.php?ru=https://radiographic.radiomemory.com.br" method="post" target="_blank">
+      <div class="idoc-modal-field">
+        <label class="idoc-modal-label" for="idocLoginUser">Código ou e-mail</label>
+        <input class="idoc-modal-input" type="text" id="idocLoginUser" name="doc_user" autocomplete="username" required>
+      </div>
+      <div class="idoc-modal-field">
+        <label class="idoc-modal-label" for="idocLoginSenha">Senha</label>
+        <input class="idoc-modal-input" type="password" id="idocLoginSenha" name="senha_user" autocomplete="current-password" required>
+      </div>
+      <button class="btn-solid btn-block idoc-modal-submit" type="submit">Entrar</button>
+    </form>
+    <p class="idoc-modal-note">
+      <a href="https://idoc.radiomemory.com.br/login#esqueci-minha-senha" target="_blank" rel="noopener">Esqueci minha senha</a>
+      — código e senha enviados por e-mail após o exame.
+    </p>
+  </div>
+</div>
+
 <!--
   ATENÇÃO: o link do iDoc abaixo foi herdado do site antigo da RadioGraphic
   (http://idoc.radiomemory.com.br/login/) — confirme com a clínica se este é
@@ -1152,11 +1252,31 @@
   const waLinkTo = (number, msg) => `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
   const waLink = (msg) => waLinkTo(CONFIG.whatsappNumber, msg);
 
+  const WA_UNITS = [
+    { id: 'waOptionPompeia', nome: 'Pompéia', numero: '5511917659356' },
+    { id: 'waOptionAnalia', nome: 'Anália Franco', numero: '5511937182828' }
+  ];
+  const waModal = document.getElementById('waModal');
+  WA_UNITS.forEach(u => {
+    document.getElementById(u.id).href = waLinkTo(u.numero, `${CONFIG.whatsappMessageDefault} Prefiro a unidade ${u.nome}.`);
+  });
+  const openWaModal = (e) => { e.preventDefault(); waModal.classList.add('is-open'); };
+  const closeWaModal = () => waModal.classList.remove('is-open');
   document.querySelectorAll('#whatsappHeaderLink, #whatsappMobileLink, #whatsappFloat, #whatsappFooterLink')
-    .forEach(el => el.href = waLink(CONFIG.whatsappMessageDefault));
+    .forEach(el => { el.href = waLink(CONFIG.whatsappMessageDefault); el.addEventListener('click', openWaModal); });
+  document.getElementById('waModalClose').addEventListener('click', closeWaModal);
+  waModal.addEventListener('click', (e) => { if (e.target === waModal) closeWaModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWaModal(); });
 
   document.querySelectorAll('#idocHeaderLink, #idocMobileLink, #idocHeroLink, #idocCtaLink, #idocFooterLink')
-    .forEach(el => el.href = CONFIG.idocUrl);
+    .forEach(el => { el.href = CONFIG.idocUrl; el.addEventListener('click', (e) => openIdocModal(e)); });
+
+  const idocModal = document.getElementById('idocModal');
+  function openIdocModal(e) { e.preventDefault(); idocModal.classList.add('is-open'); }
+  function closeIdocModal() { idocModal.classList.remove('is-open'); }
+  document.getElementById('idocModalClose').addEventListener('click', closeIdocModal);
+  idocModal.addEventListener('click', (e) => { if (e.target === idocModal) closeIdocModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeIdocModal(); });
 
   document.getElementById('telefoneFooterLink').href = CONFIG.telefoneLink;
   document.getElementById('telefoneFooterLink').textContent = CONFIG.telefone;

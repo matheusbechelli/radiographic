@@ -301,6 +301,7 @@
   .service-card{
     background:var(--paper);padding:2rem;display:flex;flex-direction:column;gap:.9rem;
     transition:background-color .2s var(--ease);
+    scroll-margin-top:100px;
   }
   .service-card:hover{background:var(--paper-deep)}
   .service-num{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;color:var(--signal);font-weight:700}
@@ -373,6 +374,61 @@
   }
   .float-whatsapp:hover{background:var(--signal);border-color:var(--signal)}
   .float-whatsapp .icon{width:1.6em;height:1.6em}
+
+
+  /* ============ WHATSAPP — ESCOLHA DE UNIDADE ============ */
+  .wa-modal{
+    display:none;position:fixed;inset:0;z-index:300;background:rgba(28,26,23,.55);
+    align-items:center;justify-content:center;padding:var(--space-3);
+  }
+  .wa-modal.is-open{display:flex}
+  .wa-modal-panel{background:var(--paper);border:1px solid var(--ink);max-width:360px;width:100%}
+  .wa-modal-head{
+    display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.3rem;
+    border-bottom:1px solid var(--line);
+    font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .wa-modal-close{background:transparent;border:none;color:var(--ink);cursor:pointer;padding:0;display:flex}
+  .wa-modal-close .icon{width:1.1em;height:1.1em}
+  .wa-modal-options{display:flex;flex-direction:column}
+  .wa-modal-option{
+    display:flex;flex-direction:column;gap:.2rem;padding:1.1rem 1.3rem;text-decoration:none;color:var(--ink);
+    border-bottom:1px solid var(--line);transition:background-color .2s var(--ease);
+  }
+  .wa-modal-option:last-child{border-bottom:none}
+  .wa-modal-option:hover{background:var(--paper-deep)}
+  .wa-modal-option strong{font-family:var(--font-display);font-size:1.1rem}
+  .wa-modal-option span{font-family:var(--font-mono);font-size:.76rem;color:var(--ink-muted)}
+
+
+  /* ============ IDOC — LOGIN DO PACIENTE ============ */
+  .idoc-modal{
+    display:none;position:fixed;inset:0;z-index:300;background:rgba(28,26,23,.55);
+    align-items:center;justify-content:center;padding:var(--space-3);
+  }
+  .idoc-modal.is-open{display:flex}
+  .idoc-modal-panel{background:var(--paper);border:1px solid var(--ink);max-width:360px;width:100%}
+  .idoc-modal-head{
+    display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.3rem;
+    border-bottom:1px solid var(--line);
+    font-family:var(--font-mono);font-weight:600;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .idoc-modal-close{background:transparent;border:none;color:var(--ink);cursor:pointer;padding:0;display:flex}
+  .idoc-modal-close .icon{width:1.1em;height:1.1em}
+  .idoc-modal-form{display:flex;flex-direction:column;gap:.9rem;padding:1.3rem}
+  .idoc-modal-field{display:flex;flex-direction:column;gap:.4rem}
+  .idoc-modal-label{font-family:var(--font-mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-muted)}
+  .idoc-modal-input{
+    width:100%;padding:.75rem .9rem;border:1px solid var(--line);border-radius:0;
+    font-family:var(--font-body);font-size:.95rem;background:var(--paper);color:var(--ink);
+  }
+  .idoc-modal-input:focus{outline:none;border-color:var(--signal)}
+  .idoc-modal-submit{margin-top:.2rem}
+  .idoc-modal-note{
+    padding:0 1.3rem 1.3rem;font-family:var(--font-mono);font-size:.72rem;color:var(--ink-muted);line-height:1.6;
+  }
+  .idoc-modal-note a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+  .idoc-modal-note a:hover{color:var(--signal)}
 </style>
 </head>
 <body>
@@ -408,6 +464,12 @@
           <ul class="nav-dropdown">
             <li><a class="nav-dropdown-link" href="cirurgia-guiada.html">Cirurgia Guiada</a></li>
             <li><a class="nav-dropdown-link" href="prototipagem.html">Prototipagem</a></li>
+            <li><a class="nav-dropdown-link" href="tomografia-cone-beam.html">Tomografia Cone Beam</a></li>
+            <li><a class="nav-dropdown-link" href="radiografia-panoramica.html">Radiografia Panorâmica</a></li>
+            <li><a class="nav-dropdown-link" href="radiografia-periapical.html">Radiografia Periapical</a></li>
+            <li><a class="nav-dropdown-link" href="telerradiografia.html">Telerradiografia</a></li>
+            <li><a class="nav-dropdown-link" href="documentacao-ortodontica.html">Documentação Ortodôntica</a></li>
+            <li><a class="nav-dropdown-link" href="escaneamento-intraoral.html">Escaneamento Intraoral</a></li>
           </ul>
         </li>
         <li><a href="solicitacao.html">Solicitação</a></li>
@@ -470,7 +532,7 @@
   <!-- ============ ESPECIALIDADES DIGITAIS ============ -->
   <section class="chapter-section" id="especialidades" style="border-top:none;padding-top:0">
     <div class="container">
-      <div class="service-grid" data-reveal>
+      <div class="service-grid cols-2" data-reveal>
         <article class="service-card">
           <span class="service-num">01</span>
           <h3>Cirurgia Guiada</h3>
@@ -483,35 +545,41 @@
           <p>Modelos e guias cirúrgicos impressos em 3D a partir da tomografia, reproduzindo a anatomia do paciente em escala real.</p>
           <a class="text-link" href="prototipagem.html">Saiba mais <span class="arrow">→</span></a>
         </article>
-        <article class="service-card">
+        <article class="service-card" id="exame-cone-beam">
           <span class="service-num">03</span>
           <h3>Tomografia Cone Beam</h3>
           <p>Imagens tridimensionais de alta resolução para avaliação detalhada e planejamento de implantes, cirurgias, endodontia, ortodontia e demais procedimentos odontológicos.</p>
+          <a class="text-link" href="tomografia-cone-beam.html">Saiba mais <span class="arrow">→</span></a>
         </article>
-        <article class="service-card">
+        <article class="service-card" id="exame-panoramica">
           <span class="service-num">04</span>
           <h3>Radiografia Panorâmica</h3>
           <p>Visão ampla das arcadas dentárias, dentes e estruturas maxilomandibulares, essencial para avaliações, diagnósticos e planejamentos odontológicos.</p>
+          <a class="text-link" href="radiografia-panoramica.html">Saiba mais <span class="arrow">→</span></a>
         </article>
-        <article class="service-card">
+        <article class="service-card" id="exame-periapical">
           <span class="service-num">05</span>
           <h3>Radiografia Periapical</h3>
           <p>Imagens detalhadas de dentes e estruturas adjacentes, permitindo uma avaliação precisa de raízes, região periapical e estruturas de suporte.</p>
+          <a class="text-link" href="radiografia-periapical.html">Saiba mais <span class="arrow">→</span></a>
         </article>
-        <article class="service-card">
+        <article class="service-card" id="exame-telerradiografia">
           <span class="service-num">06</span>
           <h3>Telerradiografia</h3>
           <p>Exame fundamental para análises cefalométricas, diagnóstico e planejamento de tratamentos ortodônticos e ortognáticos.</p>
+          <a class="text-link" href="telerradiografia.html">Saiba mais <span class="arrow">→</span></a>
         </article>
-        <article class="service-card">
+        <article class="service-card" id="exame-documentacao-ortodontica">
           <span class="service-num">07</span>
           <h3>Documentação Ortodôntica</h3>
           <p>Conjunto de exames e registros fotográficos para diagnóstico, planejamento e acompanhamento da evolução do tratamento ortodôntico.</p>
+          <a class="text-link" href="documentacao-ortodontica.html">Saiba mais <span class="arrow">→</span></a>
         </article>
-        <article class="service-card">
+        <article class="service-card" id="exame-escaneamento-intraoral">
           <span class="service-num">08</span>
           <h3>Escaneamento Intraoral</h3>
           <p>Tecnologia digital para reprodução precisa das arcadas dentárias, proporcionando praticidade e novas possibilidades para diagnóstico e planejamento odontológico.</p>
+          <a class="text-link" href="escaneamento-intraoral.html">Saiba mais <span class="arrow">→</span></a>
         </article>
       </div>
     </div>
@@ -599,6 +667,53 @@
   <svg class="icon" aria-hidden="true"><use href="#icon-whatsapp"/></svg>
 </a>
 
+<div class="wa-modal" id="waModal">
+  <div class="wa-modal-panel" role="dialog" aria-modal="true" aria-label="Escolha a unidade para falar no WhatsApp">
+    <div class="wa-modal-head">
+      <span>Escolha a unidade</span>
+      <button class="wa-modal-close" id="waModalClose" aria-label="Fechar">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg>
+      </button>
+    </div>
+    <div class="wa-modal-options">
+      <a class="wa-modal-option" id="waOptionPompeia" href="#" target="_blank" rel="noopener">
+        <strong>Pompéia</strong>
+        <span>Rua Ministro Ferreira Alves, 586</span>
+      </a>
+      <a class="wa-modal-option" id="waOptionAnalia" href="#" target="_blank" rel="noopener">
+        <strong>Anália Franco</strong>
+        <span>Av. Sapopemba, 342</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="idoc-modal" id="idocModal">
+  <div class="idoc-modal-panel" role="dialog" aria-modal="true" aria-label="Acessar seus exames pelo iDoc">
+    <div class="idoc-modal-head">
+      <span>Acessar seus exames</span>
+      <button class="idoc-modal-close" id="idocModalClose" aria-label="Fechar">
+        <svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg>
+      </button>
+    </div>
+    <form class="idoc-modal-form" action="https://radiographic.radiomemory.com.br/paciente.php?ru=https://radiographic.radiomemory.com.br" method="post" target="_blank">
+      <div class="idoc-modal-field">
+        <label class="idoc-modal-label" for="idocLoginUser">Código ou e-mail</label>
+        <input class="idoc-modal-input" type="text" id="idocLoginUser" name="doc_user" autocomplete="username" required>
+      </div>
+      <div class="idoc-modal-field">
+        <label class="idoc-modal-label" for="idocLoginSenha">Senha</label>
+        <input class="idoc-modal-input" type="password" id="idocLoginSenha" name="senha_user" autocomplete="current-password" required>
+      </div>
+      <button class="btn-solid btn-block idoc-modal-submit" type="submit">Entrar</button>
+    </form>
+    <p class="idoc-modal-note">
+      <a href="https://idoc.radiomemory.com.br/login#esqueci-minha-senha" target="_blank" rel="noopener">Esqueci minha senha</a>
+      — código e senha enviados por e-mail após o exame.
+    </p>
+  </div>
+</div>
+
 <!--
   ATENÇÃO: o link do iDoc abaixo foi herdado do site antigo da RadioGraphic
   (http://idoc.radiomemory.com.br/login/) — confirme com a clínica se este é
@@ -622,13 +737,33 @@
   if (reducedMotion) document.documentElement.classList.add('reduced-motion');
 
   /* ============ WIRE UP CONFIG-DRIVEN LINKS ============ */
-  const waLink = (msg) => `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(msg)}`;
+  const waLinkTo = (number, msg) => `https://wa.me/${number}?text=${encodeURIComponent(msg)}`;
 
+  const WA_UNITS = [
+    { id: 'waOptionPompeia', nome: 'Pompéia', numero: '5511917659356' },
+    { id: 'waOptionAnalia', nome: 'Anália Franco', numero: '5511937182828' }
+  ];
+  const waModal = document.getElementById('waModal');
+  WA_UNITS.forEach(u => {
+    document.getElementById(u.id).href = waLinkTo(u.numero, `${CONFIG.whatsappMessageDefault} Prefiro a unidade ${u.nome}.`);
+  });
+  const openWaModal = (e) => { e.preventDefault(); waModal.classList.add('is-open'); };
+  const closeWaModal = () => waModal.classList.remove('is-open');
   document.querySelectorAll('#whatsappHeaderLink, #whatsappMobileLink, #whatsappFloat, #whatsappFooterLink')
-    .forEach(el => el.href = waLink(CONFIG.whatsappMessageDefault));
+    .forEach(el => { el.href = waLinkTo(CONFIG.whatsappNumber, CONFIG.whatsappMessageDefault); el.addEventListener('click', openWaModal); });
+  document.getElementById('waModalClose').addEventListener('click', closeWaModal);
+  waModal.addEventListener('click', (e) => { if (e.target === waModal) closeWaModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWaModal(); });
 
   document.querySelectorAll('#idocHeaderLink, #idocMobileLink, #idocFooterLink')
-    .forEach(el => el.href = CONFIG.idocUrl);
+    .forEach(el => { el.href = CONFIG.idocUrl; el.addEventListener('click', (e) => openIdocModal(e)); });
+
+  const idocModal = document.getElementById('idocModal');
+  function openIdocModal(e) { e.preventDefault(); idocModal.classList.add('is-open'); }
+  function closeIdocModal() { idocModal.classList.remove('is-open'); }
+  document.getElementById('idocModalClose').addEventListener('click', closeIdocModal);
+  idocModal.addEventListener('click', (e) => { if (e.target === idocModal) closeIdocModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeIdocModal(); });
 
   document.getElementById('telefoneFooterLink').href = CONFIG.telefoneLink;
   document.getElementById('emailFooterLink').href = `mailto:${CONFIG.email}`;
