@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
 <style>
   /* ============ TOKENS ============ */
   :root{
@@ -28,9 +28,9 @@
     --paper-70:rgba(250,248,244,.72);
     --paper-45:rgba(250,248,244,.45);
 
-    --font-display:'Bodoni Moda',Georgia,serif;
+    --font-display:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
     --font-body:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-    --font-mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+    --font-mono:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
 
     --container:1240px;
     --gap:1.5rem;
@@ -401,6 +401,34 @@
   }
   .idoc-modal-note a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
   .idoc-modal-note a:hover{color:var(--signal)}
+
+  /* ============ COOKIE BANNER ============ */
+  .cookie-banner{
+    position:fixed;left:0;right:0;bottom:0;z-index:200;
+    background:var(--ink);color:var(--paper);
+    border-top:1px solid var(--ink);
+    transform:translateY(100%);opacity:0;
+    transition:transform .4s var(--ease), opacity .4s var(--ease);
+    pointer-events:none;
+  }
+  .cookie-banner.is-visible{transform:translateY(0);opacity:1;pointer-events:auto}
+  .cookie-banner-inner{
+    max-width:var(--container);margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);
+    padding:1.3rem var(--space-3);flex-wrap:wrap;
+  }
+  .cookie-banner-text{color:var(--paper-70);font-size:.88rem;max-width:62ch;margin:0}
+  .cookie-banner-text strong{color:var(--paper)}
+  .cookie-banner-actions{display:flex;gap:.8rem;flex-wrap:wrap;flex-shrink:0}
+  .cookie-banner .btn-frame-lg{color:var(--paper);border-color:var(--paper)}
+  .cookie-banner .btn-frame-lg:hover{background:var(--paper);color:var(--ink)}
+  .cookie-banner .btn-solid{background:var(--signal);border-color:var(--signal)}
+  .cookie-banner .btn-solid:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
+  @media (max-width:640px){
+    .cookie-banner-inner{flex-direction:column;align-items:flex-start}
+    .cookie-banner-actions{width:100%}
+    .cookie-banner-actions .btn-frame-lg,.cookie-banner-actions .btn-solid{flex:1}
+  }
 </style>
 </head>
 <body>
@@ -621,6 +649,16 @@
   </div>
 </div>
 
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Aviso de cookies">
+  <div class="cookie-banner-inner">
+    <p class="cookie-banner-text"><strong>Usamos cookies</strong> para melhorar sua experiência no site. Ao continuar navegando, você concorda com nossa utilização de cookies.</p>
+    <div class="cookie-banner-actions">
+      <button class="btn-frame-lg" id="cookieDecline" type="button">Recusar</button>
+      <button class="btn-solid" id="cookieAccept" type="button">Aceitar cookies</button>
+    </div>
+  </div>
+</div>
+
 <div class="idoc-modal" id="idocModal">
   <div class="idoc-modal-panel" role="dialog" aria-modal="true" aria-label="Acessar seus exames pelo iDoc">
     <div class="idoc-modal-head">
@@ -719,6 +757,24 @@
   function closeIdocModal() { idocModal.classList.remove('is-open'); }
   document.getElementById('idocModalClose').addEventListener('click', closeIdocModal);
   idocModal.addEventListener('click', (e) => { if (e.target === idocModal) closeIdocModal(); });
+
+  /* ============ COOKIE BANNER ============ */
+  (function(){
+    const banner = document.getElementById('cookieBanner');
+    const acceptBtn = document.getElementById('cookieAccept');
+    const declineBtn = document.getElementById('cookieDecline');
+    if (!banner) return;
+    const STORAGE_KEY = 'rg_cookie_consent';
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      setTimeout(() => banner.classList.add('is-visible'), 600);
+    }
+    function hideBanner(value) {
+      localStorage.setItem(STORAGE_KEY, value);
+      banner.classList.remove('is-visible');
+    }
+    acceptBtn.addEventListener('click', () => hideBanner('accepted'));
+    declineBtn.addEventListener('click', () => hideBanner('declined'));
+  })();
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeIdocModal(); });
 
   document.getElementById('telefoneFooterLink').href = CONFIG.telefoneLink;
