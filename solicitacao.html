@@ -668,6 +668,19 @@
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="field" id="fieldNomeDentista">
+              <label for="nomeDentista">Nome do dentista <span class="req">*</span></label>
+              <input type="text" id="nomeDentista" name="nomeDentista" autocomplete="off" required>
+              <span class="field-error">Informe o nome do dentista.</span>
+            </div>
+            <div class="field" id="fieldEmailDentista">
+              <label for="emailDentista">E-mail do dentista <span class="req">*</span></label>
+              <input type="email" id="emailDentista" name="emailDentista" autocomplete="off" required>
+              <span class="field-error">Informe um e-mail válido.</span>
+            </div>
+          </div>
+
           <div class="field" id="fieldUnidade">
             <label for="unidade">Unidade de preferência</label>
             <select id="unidade" name="unidade">
@@ -1017,18 +1030,29 @@
     const telefone = form.telefone.value.trim();
     const digitsOnly = telefone.replace(/\D/g, '');
     const exame = form.exame.value.trim();
+    const nomeDentista = form.nomeDentista.value.trim();
+    const emailDentista = form.emailDentista.value.trim();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     const nomeInvalid = nome.length < 2;
     const telefoneInvalid = digitsOnly.length < 10;
     const exameInvalid = exame.length < 2;
+    const nomeDentistaInvalid = nomeDentista.length < 2;
+    const emailDentistaInvalid = !emailPattern.test(emailDentista);
     const autorizacaoInvalid = !form.autorizacao.checked;
 
     setFieldError('fieldNome', nomeInvalid);
     setFieldError('fieldTelefone', telefoneInvalid);
     setFieldError('fieldExame', exameInvalid);
+    setFieldError('fieldNomeDentista', nomeDentistaInvalid);
+    setFieldError('fieldEmailDentista', emailDentistaInvalid);
 
-    if (nomeInvalid || telefoneInvalid || exameInvalid) {
-      (nomeInvalid ? form.nome : telefoneInvalid ? form.telefone : form.exame).focus();
+    if (nomeInvalid || telefoneInvalid || exameInvalid || nomeDentistaInvalid || emailDentistaInvalid) {
+      (nomeInvalid ? form.nome
+        : telefoneInvalid ? form.telefone
+        : exameInvalid ? form.exame
+        : nomeDentistaInvalid ? form.nomeDentista
+        : form.emailDentista).focus();
       return;
     }
     if (autorizacaoInvalid) {
@@ -1047,6 +1071,7 @@
     ];
     if (email) linhas.push(`E-mail: ${email}`);
     if (cro) linhas.push(`CRO do solicitante: ${cro}`);
+    linhas.push(`Dentista: ${nomeDentista}`, `E-mail do dentista: ${emailDentista}`);
     linhas.push(`Unidade: ${unidade}`, `Exame(s) solicitado(s): ${exame}`);
 
     const unidadeSelecionada = unidadeByNome(unidade);
@@ -1059,7 +1084,7 @@
     setTimeout(() => formStatus.classList.remove('is-visible'), 6000);
   });
 
-  ['nome', 'telefone', 'exame'].forEach(name => {
+  ['nome', 'telefone', 'exame', 'nomeDentista', 'emailDentista'].forEach(name => {
     form[name].addEventListener('input', () => setFieldError(`field${name[0].toUpperCase()}${name.slice(1)}`, false));
   });
 
